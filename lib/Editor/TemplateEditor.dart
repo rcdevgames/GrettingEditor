@@ -10,8 +10,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:greeting_editor/Utils/WidgetToImage.dart';
 
 class TemplateEditor extends StatefulWidget {
-  TemplateEditor({@required this.template});
+  TemplateEditor({@required this.template, this.onSave});
   final Template template;
+  final void Function(List<Item>) onSave;
   @override
   _TemplateEditorState createState() =>
       _TemplateEditorState(template, template.items);
@@ -23,6 +24,7 @@ class _TemplateEditorState extends State<TemplateEditor> {
   List<Item> items;
   final CarouselController carouselController = CarouselController();
   void _getTemplateData(List<Item> _items, {bool toGetData = false}) {
+    widget.onSave(items);
     items.forEach((item) => print(Item.toMap(item)));
   }
 
@@ -69,7 +71,7 @@ class _TemplateEditorState extends State<TemplateEditor> {
             MediaQuery.of(context).padding.top);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBar,
+      // appBar: appBar,
       body: SingleChildScrollView(
         reverse: true,
         child: Padding(
