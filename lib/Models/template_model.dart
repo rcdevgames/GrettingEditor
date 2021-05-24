@@ -2,7 +2,6 @@
 //
 //     final template = templateFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 import 'item.dart';
@@ -13,9 +12,9 @@ String templateToMap(Template data) => json.encode(data.toMap());
 
 class Template {
     Template({
-        @required this.templateUrl,
-        @required this.logoUrl,
-        @required this.items,
+        this.templateUrl,
+        this.logoUrl,
+        this.items,
     });
 
     final String templateUrl;
