@@ -55,19 +55,17 @@ class _TemplatePreviewState extends State<TemplatePreview> {
     if (widget.getDetails != null) widget.getDetails(items);
     if (widget.getId != null) widget.getId(id);
     return Container(
-      height: widget.size.width,
+      height: (widget.size.height/2) - AppBar().preferredSize.height,
       width: widget.size.width,
-      color: Colors.grey[200],
       child: Stack(
         children: [
           if (widget.templateUrl != null)
-            TextButton(
-              onPressed: () {
-                _isSelected(true, index: 0, i: 0);
-              },
-              child: Center(
-                  child: Image.network(
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: (widget.size.height/2) - AppBar().preferredSize.height,
+              child: Image.network(
                 widget.templateUrl,
+                fit: BoxFit.cover,
                 loadingBuilder:
                     (_, Widget child, ImageChunkEvent loadingProgress) {
                   if (loadingProgress == null) return child;
@@ -100,8 +98,14 @@ class _TemplatePreviewState extends State<TemplatePreview> {
                         )
                       ]);
                 },
-              )),
+              ),
             ),
+            // TextButton(
+            //   onPressed: () {
+            //     _isSelected(true, index: 0, i: 0);
+            //   },
+            //   child: ,
+            // ),
           if (isLoading)
             for (int i = 0; i < items.length; i++)
               TemplateItem(

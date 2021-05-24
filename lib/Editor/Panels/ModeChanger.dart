@@ -18,11 +18,13 @@ class ModeChanger extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             for (int i = 0; i < 3; i++)
-              ModeButton(
-                mode: item.mode,
-                size: size,
-                buttonMode: i,
-                onChanged: () => onChanged(i),
+              Flexible(
+                child: ModeButton(
+                  mode: item.mode,
+                  size: size,
+                  buttonMode: i,
+                  onChanged: () => onChanged(i),
+                ),
               )
           ],
         ),
@@ -51,7 +53,7 @@ class ModeButton extends StatelessWidget {
       onPressed: onChanged,
       child: Container(
         height: size.height / 10,
-        width: size.width / 4.4,
+        // width: size.width / 4,
         color: buttonMode == mode ? Colors.white : Colors.white30,
         child: Center(
             child: Row(

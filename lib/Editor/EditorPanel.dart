@@ -17,7 +17,6 @@ class EditorPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(item.mode);
     return ListView(children: [
       TextChanger(
         item,

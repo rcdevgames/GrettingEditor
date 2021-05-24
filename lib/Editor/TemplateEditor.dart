@@ -24,8 +24,8 @@ class _TemplateEditorState extends State<TemplateEditor> {
   List<Item> items;
   final CarouselController carouselController = CarouselController();
   void _getTemplateData(List<Item> _items, {bool toGetData = false}) {
-    widget.onSave(items);
-    items.forEach((item) => print(Item.toMap(item)));
+    // widget.onSave(items);
+    // items.forEach((item) => print(Item.toMap(item)));
   }
 
   Future<void> _showPreview() async {
@@ -72,75 +72,87 @@ class _TemplateEditorState extends State<TemplateEditor> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       // appBar: appBar,
-      body: SingleChildScrollView(
-        reverse: true,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: bottom),
-          child: Column(children: [
-            TemplatePreview(
-              getDetails: (List<Item> _items) {
-                _getTemplateData(
-                  _items,
-                );
-              },
-              items: items,
-              size: MediaQuery.of(context).size,
-              getId: (int id) {
-                if (id == null) return;
-                carouselController.animateToPage(id);
-              },
-              templateUrl: widget.template.templateUrl,
-            ),
-            Container(
-              height: editorPanelSize.height,
-              width: editorPanelSize.width,
-              child: CarouselSlider(
-                  carouselController: carouselController,
-                  options: CarouselOptions(
-                      height: editorPanelSize.height,
-                      viewportFraction: 1,
-                      initialPage: 3,
-                      scrollPhysics: NeverScrollableScrollPhysics(),
-                      aspectRatio: 1),
-                  items: [
-                    for (var i = 0; i < items.length + 1; i++)
-                      i != 3
-                          ? EditorPanel(
-                              item: items[i],
-                              size: editorPanelSize,
-                              onItemChanged: (Item item) {
-                                items[i] = item;
-                                setState(() {
-                                  items = items;
-                                });
-                              },
-                            )
-                          : Center(
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(15.0),
-                                      child: Icon(
-                                        Icons.warning_rounded,
-                                        size: 80,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: editorPanelSize.width / 1.4,
-                                      child: AutoSizeText(
-                                        'Silahkan pilih tulisan yang ingin diubah pada gambar di atas',
-                                        maxLines: 2,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ]),
-                            )
-                  ]),
-            )
-          ]),
+      body: Column(children: [
+        TemplatePreview(
+          getDetails: (List<Item> _items) {
+            _getTemplateData(
+              _items,
+            );
+          },
+          items: items,
+          size: MediaQuery.of(context).size,
+          getId: (int id) {
+            if (id == null) return;
+            carouselController.animateToPage(id);
+          },
+          templateUrl: widget.template.templateUrl,
         ),
-      ),
+        Divider(height: 0),
+        Flexible(
+          child: SizedBox(
+            width: double.infinity,
+            child: CarouselSlider(
+            carouselController: carouselController,
+            options: CarouselOptions(
+              // height: editorPanelSize.height,
+              viewportFraction: 1,
+              initialPage: 3,
+              scrollPhysics: NeverScrollableScrollPhysics(),
+              aspectRatio: 1
+            ),
+            items: [
+              for (var i = 0; i < items.length + 1; i++)
+                i != 3
+                    ? EditorPanel(
+                        item: items[i],
+                        size: editorPanelSize,
+                        onItemChanged: (Item item) {
+                          items[i] = item;
+                          setState(() {
+                            items = items;
+                          });
+                        },
+                      )
+                    : Center(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Icon(
+                                  Icons.warning_rounded,
+                                  size: 80,
+                                ),
+                              ),
+                              SizedBox(
+                                width: editorPanelSize.width / 1.4,
+                                child: AutoSizeText(
+                                  'Silahkan pilih tulisan yang ingin diubah pada gambar di atas',
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ]),
+                      )
+            ]),
+          ),
+        ),
+        // FittedBox(
+        //   child: Container(
+        //   // height: editorPanelSize.height,
+        //   width: editorPanelSize.width,
+        //   child: ,
+        // ),
+        // ),
+        SizedBox(
+          width: double.infinity,
+          child: RaisedButton(
+            color: Colors.green[500],
+            child: Text("Simpan", style: TextStyle(color: Colors.white)),
+            onPressed: () => widget.onSave(items),
+          ),
+        )
+      ]),
     );
   }
 }

@@ -1,3 +1,8 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1] - Add release date.
 
-* TODO: Describe initial release.
+* Initial Release
+
+## [0.0.2] - Bug Fixing
+
+* add callback function
+* fix structure folder
