@@ -175,7 +175,7 @@ class Item {
       : _text = _map['text'],
         itemType = _map['itemType'],
         _maxLines = _map['maxLines'].toInt(),
-        _format = _map['format'],
+        _format = (_map['format'] as List).map((e) => bool.fromEnvironment(e.toString(), defaultValue: false)).toList(),
         _offset = Offset(_map['offset'][0], _map['offset'][1]),
         size = _map['size'] == null
             ? null
@@ -186,7 +186,7 @@ class Item {
           _map['color'][1].toInt(),
           _map['color'][2].toInt(),
         ),
-        _outlineColor = Color.fromARGB(
+        _outlineColor = _map['outlineColor'] == null || _map['outlineColor'] == "null" ? null : Color.fromARGB(
           255,
           _map['outlineColor'][0].toInt(),
           _map['outlineColor'][1].toInt(),
