@@ -45,47 +45,49 @@ class Home extends StatelessWidget {
         title: Text("Example"),
       ),
       body: TemplateEditor(
-        template: Template(name, url, [
-          Item.fromMap({
-            "text": "Congratulations",
-            "itemType": "ucapan",
-            "maxLines": 1,
-            "format": [false, false],
-            "offset": [0.16, 0.12434579439252336],
-            "size": [0.7, 0.2],
-            "color": [255, 255, 255],
-            "outlineColor": [0, 0, 0],
-            "logoUrl": null,
-            "font": "Kaushan Script",
-            "mode": 0
-          }),
-          Item.fromMap({
-            "text": "For your first project",
-            "itemType": "untuk",
-            "maxLines": 2,
-            "format": [false, false],
-            "offset": [0.15844235571745402, 0.3423675893623139],
-            "size": [0.7, 0.2],
-            "color": [255, 255, 255],
-            "outlineColor": [0, 0, 0],
-            "logoUrl": null,
-            "font": "Oswald",
-            "mode": 0
-          }),
-          Item.fromMap({
-            "text": "Rizky Andhika Putra",
-            "itemType": "dari",
-            "maxLines": 2,
-            "format": [false, false],
-            "offset": [0.16, 0.6550778697361457],
-            "size": [0.7, 0.2],
-            "color": [255, 255, 255],
-            "outlineColor": [0, 0, 0],
-            "logoUrl": "https://firebasestorage.googleapis.com/v0/b/rota-app-767c2.appspot.com/o/logo%20test.png?alt=media&token=4109106b-edeb-4607-95a8-fd62b3f96178",
-            "font": "Oswald",
-            "mode": 0
-          })  
-        ]),
+        template: Template(name, url, null
+          // [
+          //   Item.fromMap({
+          //     "text": "Congratulations",
+          //     "itemType": "ucapan",
+          //     "maxLines": 1,
+          //     "format": [false, false],
+          //     "offset": [0.16, 0.12434579439252336],
+          //     "size": [0.7, 0.2],
+          //     "color": [255, 255, 255],
+          //     "outlineColor": [0, 0, 0],
+          //     "logoUrl": null,
+          //     "font": "Kaushan Script",
+          //     "mode": 0
+          //   }),
+          //   Item.fromMap({
+          //     "text": "For your first project",
+          //     "itemType": "untuk",
+          //     "maxLines": 2,
+          //     "format": [false, false],
+          //     "offset": [0.15844235571745402, 0.3423675893623139],
+          //     "size": [0.7, 0.2],
+          //     "color": [255, 255, 255],
+          //     "outlineColor": [0, 0, 0],
+          //     "logoUrl": null,
+          //     "font": "Oswald",
+          //     "mode": 0
+          //   }),
+          //   Item.fromMap({
+          //     "text": "Rizky Andhika Putra",
+          //     "itemType": "dari",
+          //     "maxLines": 2,
+          //     "format": [false, false],
+          //     "offset": [0.16, 0.6550778697361457],
+          //     "size": [0.7, 0.2],
+          //     "color": [255, 255, 255],
+          //     "outlineColor": [0, 0, 0],
+          //     "logoUrl": "https://firebasestorage.googleapis.com/v0/b/rota-app-767c2.appspot.com/o/logo%20test.png?alt=media&token=4109106b-edeb-4607-95a8-fd62b3f96178",
+          //     "font": "Oswald",
+          //     "mode": 0
+          //   })  
+          // ]
+        ),
         onSave: (val) => print(val.map((e) => Item.toMap(e)).toList()),
       ),
     );

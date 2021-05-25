@@ -4,7 +4,7 @@ import 'item.dart';
 class Template {
   String name, templateUrl;
   List<Item> items;
-  Template(this.name, this.templateUrl, this.items);
+  Template(this.name, this.templateUrl, [ this.items ]);
   Template.withItems(Template _template, List<Item> items)
       : this.items = items,
         this.name = _template.name,

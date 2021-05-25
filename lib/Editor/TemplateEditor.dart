@@ -15,7 +15,7 @@ class TemplateEditor extends StatefulWidget {
   final void Function(List<Item>) onSave;
   @override
   _TemplateEditorState createState() =>
-      _TemplateEditorState(template, template.items);
+      _TemplateEditorState(template, template.itemData);
 }
 
 class _TemplateEditorState extends State<TemplateEditor> {

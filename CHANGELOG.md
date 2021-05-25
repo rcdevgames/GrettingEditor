@@ -12,6 +12,10 @@
 * fix callback
 * added input exsisting data
 
-## [0.0.3] - Bug Fixing
+## [0.0.4] - Bug Fixing
 
 * fix data model
+
+## [0.0.5] - Bug Fixing
+
+* fix data model on null data
