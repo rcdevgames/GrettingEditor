@@ -144,7 +144,8 @@ class _TemplateEditorState extends State<TemplateEditor> {
         //   child: ,
         // ),
         // ),
-        SizedBox(
+        Container(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
           width: double.infinity,
           child: RaisedButton(
             color: Colors.green[500],

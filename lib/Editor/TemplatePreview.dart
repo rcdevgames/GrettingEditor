@@ -98,6 +98,16 @@ class _TemplatePreviewState extends State<TemplatePreview> {
                         )
                       ]);
                 },
+                errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                  });
+                  return Center(
+                    child: Text("Gambar Tidak ditemukan, harap pilih gambar."),
+                  );
+                },
               ),
             ),
             // TextButton(

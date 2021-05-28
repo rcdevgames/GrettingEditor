@@ -19,3 +19,11 @@
 ## [0.0.5] - Bug Fixing
 
 * fix data model on null data
+
+## [0.0.6] - Upload Problem
+
+* Error upload unkown
+
+## [0.0.7] - Bug Fixing
+
+* Fixing image not found
