@@ -14,6 +14,7 @@ export 'Editor/Panels/FormatChanger.dart';
 export 'Editor/Panels/MaxLinesChanger.dart';
 export 'Editor/Panels/ModeChanger.dart';
 export 'Editor/Panels/TextChanger.dart';
+export 'Editor/Panels/TemplateShow.dart';
 
 // Data Models
 export 'Models/item.dart';

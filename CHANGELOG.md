@@ -27,3 +27,7 @@
 ## [0.0.7] - Bug Fixing
 
 * Fixing image not found
+
+## [0.0.8] - New Feature
+
+* Added Template Preview with class TemplateShow()

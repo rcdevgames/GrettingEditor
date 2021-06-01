@@ -74,11 +74,11 @@ class _TemplateEditorState extends State<TemplateEditor> {
       // appBar: appBar,
       body: Column(children: [
         TemplatePreview(
-          getDetails: (List<Item> _items) {
-            _getTemplateData(
-              _items,
-            );
-          },
+          // getDetails: (List<Item> _items) {
+          //   _getTemplateData(
+          //     _items,
+          //   );
+          // },
           items: items,
           size: MediaQuery.of(context).size,
           getId: (int id) {
