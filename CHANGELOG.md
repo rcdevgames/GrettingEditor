@@ -31,3 +31,7 @@
 ## [0.0.8] - New Feature
 
 * Added Template Preview with class TemplateShow()
+
+## [0.0.9] - New Feature
+
+* Added callback image path

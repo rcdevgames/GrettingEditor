@@ -1,18 +1,22 @@
+import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:greeting_editor/Editor/EditorPanel.dart';
 import 'package:greeting_editor/Editor/TemplatePreview.dart';
 import 'package:greeting_editor/Models/Template.dart';
 import 'package:greeting_editor/Models/item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:greeting_editor/Utils/WidgetToImage.dart';
+import 'package:path_provider/path_provider.dart';
 
 class TemplateEditor extends StatefulWidget {
   TemplateEditor({@required this.template, this.onSave});
   final Template template;
-  final void Function(List<Item>) onSave;
+  final void Function(List<Item>, String imagePath) onSave;
   @override
   _TemplateEditorState createState() =>
       _TemplateEditorState(template, template.itemData);
@@ -20,6 +24,7 @@ class TemplateEditor extends StatefulWidget {
 
 class _TemplateEditorState extends State<TemplateEditor> {
   _TemplateEditorState(this.template, this.items);
+  final repaintKey = GlobalKey();
   Template template;
   List<Item> items;
   final CarouselController carouselController = CarouselController();
@@ -73,19 +78,22 @@ class _TemplateEditorState extends State<TemplateEditor> {
       resizeToAvoidBottomInset: false,
       // appBar: appBar,
       body: Column(children: [
-        TemplatePreview(
-          // getDetails: (List<Item> _items) {
-          //   _getTemplateData(
-          //     _items,
-          //   );
-          // },
-          items: items,
-          size: MediaQuery.of(context).size,
-          getId: (int id) {
-            if (id == null) return;
-            carouselController.animateToPage(id);
-          },
-          templateUrl: widget.template.templateUrl,
+        RepaintBoundary(
+          key: repaintKey,
+          child: TemplatePreview(
+            // getDetails: (List<Item> _items) {
+            //   _getTemplateData(
+            //     _items,
+            //   );
+            // },
+            items: items,
+            size: MediaQuery.of(context).size,
+            getId: (int id) {
+              if (id == null) return;
+              carouselController.animateToPage(id);
+            },
+            templateUrl: widget.template.templateUrl,
+          ),
         ),
         Divider(height: 0),
         Flexible(
@@ -150,7 +158,16 @@ class _TemplateEditorState extends State<TemplateEditor> {
           child: RaisedButton(
             color: Colors.green[500],
             child: Text("Simpan", style: TextStyle(color: Colors.white)),
-            onPressed: () => widget.onSave(items),
+            onPressed: () async {
+              final directory = await getExternalStorageDirectories(type: StorageDirectory.pictures);
+              RenderRepaintBoundary boundary = repaintKey.currentContext.findRenderObject();
+              final image = await boundary.toImage();
+              ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
+              Uint8List pngBytes = byteData.buffer.asUint8List();
+              File("${directory.first.path}/${template.name}.png").writeAsBytes(pngBytes);
+              final path = "${directory.first.path}/${template.name}.png";
+              widget.onSave(items, path);
+            },
           ),
         )
       ]),

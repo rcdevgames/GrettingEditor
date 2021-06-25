@@ -1,6 +1,6 @@
 name: greeting_editor
 description: Editor Greeting Template Bisnis Pintar
-version: 0.0.8
+version: 0.0.9
 authors:
   - Rizky<rcdev.games@gmail.com>
 homepage: https://github.com/rcdevgames/
@@ -18,6 +18,7 @@ dependencies:
   google_fonts: ^1.1.2
   image_picker: ^0.6.7+22
   o_color_picker: ^0.1.0
+  path_provider: ^1.6.27
 
 dev_dependencies: null
 

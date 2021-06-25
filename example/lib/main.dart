@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 
 class Home extends StatelessWidget {
   final _key = new GlobalKey<ScaffoldState>();
-  final name = "";
+  final name = "testing";
   // final url = "https://firebasestorage.googleapis.com/v0/b/rota-app-767c2.appspot.com/o/template1.png?alt=media&token=e8825f7c-53a8-4473-8460-1ccebbcc224c";
   final url = "https://sographql.enfyx.com/static/item/Ph5j1uu0oj.jpg";
   // final url = "https://sographql.enfyx.com/static/item/Ph5j1uu0oj.png";
@@ -46,15 +46,18 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: Text("Example"),
       ),
-      // body: TemplateEditor(
-      //   template: Template(name, url, null),
-      //   onSave: (val) => print(val.map((e) => Item.toMap(e)).toList()),
-      // ),
-      body: TemplateShow(
+      body: TemplateEditor(
         template: Template(name, url, null),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        onSave: (val, v) {
+          print(val.map((e) => Item.toMap(e)).toList());
+          print(v);
+        },
       ),
+      // body: TemplateShow(
+      //   template: Template(name, url, null),
+      //   width: MediaQuery.of(context).size.width,
+      //   height: MediaQuery.of(context).size.height,
+      // ),
     );
   }
 }
