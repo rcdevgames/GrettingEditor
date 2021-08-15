@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:greeting_editor/Editor/Items/TextItem.dart';
 import 'package:greeting_editor/Editor/Panels/ColorChanger.dart';
@@ -7,6 +9,7 @@ import 'package:greeting_editor/Editor/Panels/MaxLinesChanger.dart';
 import 'package:greeting_editor/Editor/Panels/ModeChanger.dart';
 import 'package:greeting_editor/Editor/Panels/TextChanger.dart';
 import 'package:greeting_editor/Models/item.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditorPanel extends StatelessWidget {
   EditorPanel(
@@ -41,8 +44,12 @@ class EditorPanel extends StatelessWidget {
       if (item.mode != 0)
         ListTile(
           onTap: () async {
-            //final PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
-            //'gs://greeting-9ae36.appspot.com'
+            final picker = ImagePicker();
+            final pickedFile = await picker.getImage(source: ImageSource.gallery);
+            if (pickedFile != null) {
+              item.logoUrl = await pickedFile.readAsBytes();
+              onItemChanged(item);
+            }
           },
           tileColor: item.boxColor,
           title: Text('Logo Perusahaan'),

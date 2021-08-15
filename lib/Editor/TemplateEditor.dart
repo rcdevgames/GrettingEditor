@@ -75,7 +75,7 @@ class _TemplateEditorState extends State<TemplateEditor> {
             appBar.preferredSize.height -
             MediaQuery.of(context).padding.top);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       // appBar: appBar,
       body: Column(children: [
         RepaintBoundary(

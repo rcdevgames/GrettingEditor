@@ -1,10 +1,13 @@
 
+import 'dart:typed_data';
+
 import 'item.dart';
 
 class Template {
   String name, templateUrl;
   List<Item> items;
-  Template(this.name, this.templateUrl, [ this.items ]);
+  Uint8List logoUrl;
+  Template(this.name, this.templateUrl, [ this.items , this.logoUrl]);
   Template.withItems(Template _template, List<Item> items)
       : this.items = items,
         this.name = _template.name,
@@ -48,7 +51,7 @@ class Template {
           "size": [0.7, 0.2],
           "color": [255, 255, 255],
           "outlineColor": [0, 0, 0],
-          "logoUrl": "https://firebasestorage.googleapis.com/v0/b/rota-app-767c2.appspot.com/o/logo%20test.png?alt=media&token=4109106b-edeb-4607-95a8-fd62b3f96178",
+          "logoUrl": this.logoUrl,
           "font": "Oswald",
           "mode": 0
         })  

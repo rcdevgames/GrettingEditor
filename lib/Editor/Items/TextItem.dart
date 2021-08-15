@@ -9,59 +9,71 @@ class TextItem extends StatelessWidget {
   final String font;
   TextItem(this.item, {this.font});
   @override
-  Widget build(BuildContext context) => Stack(
-        children: <Widget>[
-          if (item.outlineColor != null)
-            Center(
-              child: AutoSizeText(
-                item.format[0]
-                    ? item.text.toUpperCase()
-                    : item.text.capitalize(),
-                maxLines: item.maxlines,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.getFont(font != null ? font : item.font,
-                        fontSize: 2000,
-                        fontWeight: item.format[1]
-                            ? FontWeight.bold
-                            : FontWeight.normal)
-                    .merge(TextStyle(
-                  foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 6
-                    ..color = item.outlineColor,
-                )),
-              ),
-            ),
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        if (item.outlineColor != null && item.mode != 2)
           Row(
             children: [
-              if (item.itemType == 'dari' &&
-                  item.size != null &&
-                  item.logoUrl != null)
-                if (item.mode != 0)
-                  Flexible(flex: 1, child: Center(child: LogoItem(item))),
-              if (item.mode != 2)
-                Flexible(
-                  flex: 3,
-                  child: Center(
-                    child: AutoSizeText(
-                        item.format[0]
-                            ? item.text.toUpperCase()
-                            : item.text.capitalize(),
-                        maxLines: item.maxlines,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.getFont(
-                            font != null ? font : item.font,
+              if (item.mode == 1)
+                Container(
+                  height: (item.size.height * MediaQuery.of(context).size.width) - 10,
+                  width: (item.size.height * MediaQuery.of(context).size.width) - 10,
+                ),
+              Flexible(
+                flex: 3,
+                child: Center(
+                  child: AutoSizeText(
+                    item.format[1]
+                        ? item.text.toUpperCase()
+                        : item.text.capitalize(),
+                    maxLines: item.maxlines,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.getFont(font != null ? font : item.font,
                             fontSize: 2000,
-                            color: item.color,
-                            fontWeight: item.format[1]
+                            fontWeight: item.format[0]
                                 ? FontWeight.bold
-                                : FontWeight.normal)),
+                                : FontWeight.normal)
+                        .merge(TextStyle(
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 6
+                        ..color = item.outlineColor,
+                    )),
                   ),
                 ),
+              ),
             ],
           ),
-        ],
-      );
+        Row(
+          children: [
+            if (item.itemType == 'dari' && item.size != null && item.logoUrl != null)
+              if (item.mode != 0)
+                Flexible(flex: 1, child: Center(child: LogoItem(item))),
+            if (item.mode != 2)
+              Flexible(
+                flex: 3,
+                child: Center(
+                  child: AutoSizeText(
+                      item.format[1]
+                          ? item.text.toUpperCase()
+                          : item.text.capitalize(),
+                      maxLines: item.maxlines,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.getFont(
+                          font != null ? font : item.font,
+                          fontSize: 2000,
+                          color: item.color,
+                          fontWeight: item.format[0]
+                              ? FontWeight.bold
+                              : FontWeight.normal)),
+                ),
+              ),
+          ],
+        ),
+      ],
+    );
+  }
 }
 
 class LogoItem extends StatelessWidget {
@@ -73,7 +85,7 @@ class LogoItem extends StatelessWidget {
         height: item.size.height * MediaQuery.of(context).size.width,
         width: item.size.height * MediaQuery.of(context).size.width,
         child: Center(
-          child: Image.network(item.logoUrl),
+          child: Image.memory(item.logoUrl),
         ));
   }
 }

@@ -1,25 +1,25 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:greeting_editor/Utils/FontList.dart';
 
 class Item {
-  String _text, itemType, _logoUrl, _font;
+  Uint8List _logoUrl;
+  String _text, itemType, _font;
   Offset _offset;
   List<bool> _format;
   Size size;
   Color _color, _outlineColor;
   int _maxLines, _mode;
 
-  Item.init(this.itemType);
-
-  static String defaultLogo =
-      'https://firebasestorage.googleapis.com/v0/b/rota-app-767c2.appspot.com/o/logo%20test.png?alt=media&token=4109106b-edeb-4607-95a8-fd62b3f96178';
-
+  Item.init(this.itemType);  
+  
   String get font => _getFont(_font);
   String get text => _getText(_text);
   int get maxlines => _getMaxLines(_maxLines);
   Offset get offset => _getOffset(_offset);
   Color get outlineColor => _getOutlineColor(_outlineColor);
-  String get logoUrl => _getLogoUrl(_logoUrl);
+  Uint8List get logoUrl => _getLogoUrl(_logoUrl);
   Color get color => _getColor(_color);
   List<bool> get format => _getFormat(_format);
   int get mode => _getMode(_mode);
@@ -65,6 +65,10 @@ class Item {
     this._color = _color;
   }
 
+  set logoUrl(Uint8List _logoUrl) {
+    this._logoUrl = _logoUrl;
+  }
+
   set outlineColor(Color _outlineColor) {
     this._outlineColor = _outlineColor;
   }
@@ -75,13 +79,7 @@ class Item {
     this._format = temp;
   }
 
-  String _getLogoUrl(String data) => (itemType == 'dari')
-      ? data == null
-          ? defaultLogo
-          : data
-      : data == null
-          ? null
-          : data;
+  Uint8List _getLogoUrl(Uint8List data) => (itemType == 'dari') ? data : (data == null ? null : data);
 
   int _getMaxLines(int _data) => _data == null
       ? itemType == 'ucapan'

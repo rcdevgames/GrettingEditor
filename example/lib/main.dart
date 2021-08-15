@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:greeting_editor/greeting_editor.dart';
 
 void main() {
@@ -32,12 +35,35 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final _key = new GlobalKey<ScaffoldState>();
   final name = "testing";
-  // final url = "https://firebasestorage.googleapis.com/v0/b/rota-app-767c2.appspot.com/o/template1.png?alt=media&token=e8825f7c-53a8-4473-8460-1ccebbcc224c";
   final url = "https://sographql.enfyx.com/static/item/Ph5j1uu0oj.jpg";
-  // final url = "https://sographql.enfyx.com/static/item/Ph5j1uu0oj.png";
+  final urlLogo = "https://firebasestorage.googleapis.com/v0/b/rota-app-767c2.appspot.com/o/logo%20test.png?alt=media&token=4109106b-edeb-4607-95a8-fd62b3f96178";
+  Uint8List logoImage;
+  bool loading = true;
+
+  @override
+  void initState() {
+    getLogo();
+    super.initState();
+  }
+
+  Future getLogo() async {
+    final urls = (await NetworkAssetBundle(Uri.parse(urlLogo)).load(urlLogo))
+      .buffer
+      .asUint8List();
+    setState(() {
+      logoImage = urls;
+      loading = false;
+    });
+    print(urls);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,18 +72,16 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: Text("Example"),
       ),
-      body: TemplateEditor(
-        template: Template(name, url, null),
-        onSave: (val, v) {
-          print(val.map((e) => Item.toMap(e)).toList());
-          print(v);
-        },
-      ),
-      // body: TemplateShow(
-      //   template: Template(name, url, null),
-      //   width: MediaQuery.of(context).size.width,
-      //   height: MediaQuery.of(context).size.height,
-      // ),
+      body: Builder(builder: (context) {
+        if (loading)  return Center(child: CircularProgressIndicator());
+        return TemplateEditor(
+          template: Template(name, url, null, logoImage),
+          onSave: (val, v) {
+            print(val.map((e) => Item.toMap(e)).toList());
+            print(v);
+          },
+        );
+      }),
     );
   }
 }

@@ -66,69 +66,40 @@ class _TemplatePreviewState extends State<TemplatePreview> {
               child: Image.network(
                 widget.templateUrl,
                 fit: BoxFit.cover,
-                loadingBuilder:
-                    (_, Widget child, ImageChunkEvent loadingProgress) {
+                loadingBuilder: (_, Widget child, ImageChunkEvent loadingProgress) {
                   if (loadingProgress == null) return child;
-                  if (loadingProgress.cumulativeBytesLoaded ==
-                      loadingProgress.expectedTotalBytes) {
-                    SchedulerBinding.instance.addPostFrameCallback((_) {
-                      setState(() {
-                        isLoading = true;
-                      });
-                    });
-                  }
                   return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Gambar sedang di muat',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: LinearProgressIndicator(
-                            backgroundColor: Colors.grey,
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.black),
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes
-                                : null,
-                          ),
-                        )
-                      ]);
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Gambar sedang di muat',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(),
+                      )
+                    ]);
                 },
-                errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                  SchedulerBinding.instance.addPostFrameCallback((_) {
-                    setState(() {
-                      isLoading = true;
-                    });
-                  });
+                errorBuilder: (context, error, stackTrace) {
                   return Center(
                     child: Text("Gambar Tidak ditemukan, harap pilih gambar."),
                   );
                 },
               ),
             ),
-            // TextButton(
-            //   onPressed: () {
-            //     _isSelected(true, index: 0, i: 0);
-            //   },
-            //   child: ,
-            // ),
-          if (isLoading)
-            for (int i = 0; i < items.length; i++)
-              TemplateItem(
-                isSelected: ({index}) => _isSelected(false, index: index, i: i),
-                size: widget.size,
-                getDetails: (Item item) {
-                  if (items[i] == item) return;
-                  setState(() {
-                    items[i] = item;
-                  });
-                },
-                item: items[i],
-              )
+          for (int i = 0; i < items.length; i++)
+            TemplateItem(
+              isSelected: ({index}) => _isSelected(false, index: index, i: i),
+              size: widget.size,
+              getDetails: (Item item) {
+                if (items[i] == item) return;
+                setState(() {
+                  items[i] = item;
+                });
+              },
+              item: items[i],
+            )
         ],
       ),
     );
