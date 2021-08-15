@@ -35,3 +35,8 @@
 ## [0.0.9] - New Feature
 
 * Added callback image path
+
+## [0.0.10] - New Feature
+
+* Bug fixing
+* Add change logo
